@@ -18,12 +18,15 @@ class TaskSeeder extends Seeder
 
         for ($i=0; $i < 20; $i++) {
             $rendomUser = User::inRandomOrder()->first();
+            $startDate = now();
+            $endDate = now()->addWeeks(3);
+            $expirationDate = fake()->dateTimeBetween($startDate, $endDate);
             Task::create([
                 'user_id'=> $rendomUser->id,
                 'title'=> substr(fake()->sentence(3),0,100),
                 'description'=> fake()->paragraph(),
                 'completed'=> fake()->boolean(),
-                'expiration_date' => fake()->dateTime('+3 weeks')
+                'expiration_date' => $expirationDate,
             ]);
 
         }
